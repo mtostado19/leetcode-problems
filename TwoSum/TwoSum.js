@@ -26,3 +26,35 @@ x.forEach(element => {
   console.log(twoSum(element[0], element[1]));
 });
 
+
+
+// More Efficient Solution
+
+// We check the complement generated from each element in the array (target - number[i])
+// if the result of the complement is "0", we have found our 2 number.
+// if the result is diferent from 0, we save the complement with its index in an array
+// and then we evaluate the following position.
+// if the number we are currently evaluating already exists within the complement array,
+// then we have found our 2 numbers.
+
+console.log("------------------------------");
+
+
+function TwoSumBetter(nums, target) {
+  let complement_map = [];
+  for (let i = 0; i < nums.length;  i++) {
+    let complement = target - nums[i];
+
+    for (let x = 0; x < complement_map.length; x++) {
+      if (nums[i] == complement_map[x].complement){
+        return [complement_map[x].index, i];
+      }
+    }
+
+    complement_map.push({ complement, index: i });
+  }
+}
+
+x.forEach(element => {
+  console.log(TwoSumBetter(element[0], element[1]));
+});
