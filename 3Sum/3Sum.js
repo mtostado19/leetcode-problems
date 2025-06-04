@@ -17,7 +17,7 @@ var threeSum = function (nums) {
 
       for (let k = 2; k < nums.length; k++) {
         if (nums[i] + nums[j + j2] + nums[k + k2] == 0) {
-          arr_solution.push([nums[i], nums[j], nums[k]]);
+          arr_solution.push([nums[i], nums[j + j2], nums[k + k2]]);
         }
 
       }
@@ -33,6 +33,7 @@ let arr = [
   [-1,0,1,2,-1,-4],
   [],
   [0,0,0],
+  [2,0,-1,4,6,-6,0,8,1,1,-1,-2,3]
 ];
 
 
