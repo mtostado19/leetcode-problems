@@ -4,62 +4,45 @@
  */
 var lengthOfLongestSubstring = function(s) {
   if (s.split("").length == 0) { return 0; }
+  const array = s.split("");
   let longestFound = 0;
-  let current_length = 0;
-  console.log(s.split(""));
-  for (let i = 0; i < s.split("").length; i++) {
-    current_length = recursiveFunction(s.split(""), [], i);
-    if (longestFound < current_length) {
-      longestFound = current_length;
+  let i = 0;
+  let current_solution;
+
+  while (array.length - 1 >= i) {
+    current_solution = searchUntilRepeat(s.split(""), [], i);
+    console.log(current_solution);
+    longestFound = longestFound < current_solution.length ? current_solution.length : longestFound;
+    if (i + current_solution.length >= array.length) {
+      break;
     }
+    i += current_solution.indexOf(array[i + current_solution.length]) + 1;
   }
   return longestFound;
 };
 
 
-const recursiveFunction = function(arr, current_arr, n) {
-  let longestSubstring = 0;
+const searchUntilRepeat = function(arr, current_arr, n) {
   if (!current_arr.includes(arr[n])) {
     current_arr.push(arr[n]);
     if (n < (arr.length - 1)) {
-      longestSubstring = recursiveFunction(arr, current_arr, n+1);
-    } else {
-      return current_arr.length;
+      searchUntilRepeat(arr, current_arr, n+1);
     }
-  } else {
-    return current_arr.length;
+    return current_arr;
   }
-  return longestSubstring;
+  return current_arr;
 }
 
 
+const a = [
+  "abcabcbb",
+  "dvdf",
+  "wwtreuwpl",
+  "mnopolkjhgmmi"
+]
 
-const s = "dvdf";
-const a = "abcabcbb";
+a.forEach(element => {
+  console.log(lengthOfLongestSubstring(element));
+  console.log("-------------")
+});
 
-
-lengthOfLongestSubstring(a);
-
-
-
-
-// first attempt
-// var lengthOfLongestSubstring = function(s) {
-//   if (s.split("").length == 0) { return 0; }
-//   let last_letters = [];
-//   let largest_solution = 0;
-
-//   let test = [];
-
-
-//   s.split("").forEach(e => {
-//     if (last_letters.includes(e)) {
-//       largest_solution = last_letters.length > largest_solution ? last_letters.length : largest_solution;
-//       test.push(...last_letters);
-//       last_letters = [];
-//     }
-//     last_letters.push(e);
-//     largest_solution = last_letters.length > largest_solution ? last_letters.length : largest_solution
-//   });
-//   return largest_solution;
-// };
