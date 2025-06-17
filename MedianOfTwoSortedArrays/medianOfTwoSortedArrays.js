@@ -4,20 +4,59 @@
  * @return {number}
  */
 var findMedianSortedArrays = function(nums1, nums2) {
-  let new_arr = sortArray(nums1, nums2);
-  if (new_arr.length % 2 == 0) {
-    console.log("even");
+  let median;
+  let new_arr = [];
+  new_arr.push(...nums1, ...nums2)
+  let arr_sorted = quickSort(new_arr, 0, new_arr.length - 1);
+  if (arr_sorted.length % 2 == 0) {
+    median = (arr_sorted[(arr_sorted.length/2) - 1] + arr_sorted[(arr_sorted.length/2)]) / 2;
   } else {
-    console.log("odd");
+    median = arr_sorted[Math.round(arr_sorted.length/2) - 1];
   }
+  return median;
 };
 
-function sortArray(nums1, nums2) {
-  // must be 0(log(m+n))
-};
 
+function quickSort(arr, low, high) {
+  if (low < high) {
+
+    // do the steps
+    let parti = partition(arr, low, high);
+
+    // do the recursion here
+    quickSort(arr, low, parti-1)
+    quickSort(arr, parti+1, high)
+  }
+  return arr;
+}
+
+function swap(arr, i, m) {
+  let temp = arr[i];
+  arr[i] = arr[m];
+  arr[m] = temp;
+}
+
+
+function partition(arr, low, high) {
+  let pivot = arr[high];
+  let index = low;
+  let helper = low - 1;
+
+  for (index; index < high; index++) {
+    if(arr[index] <= pivot) {
+      helper++;
+      if (arr[index] > arr[helper]) {
+        // swap
+        swap(arr, index, helper)
+      }
+    }
+  }
+  swap(arr, helper + 1, high);
+  return helper + 1;
+}
 
 const num1 = [1,3];
-const num2 = [2];
+const num2 = [2,6];
 
-findMedianSortedArrays(num1, num2);
+let result = findMedianSortedArrays(num1, num2);
+console.log(result);
