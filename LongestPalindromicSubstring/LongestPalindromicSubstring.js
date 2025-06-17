@@ -27,16 +27,14 @@ var longestPalindrome = function(s) {
 };
 
 function checkForPalindrome(arr, left, right) {
-  let isPalindrome = true;
   while (left <= right) {
     if (arr[left] != arr[right]) {
-      isPalindrome = false;
-      break;
+      return false;
     }
     left++;
     right--;
   }
-  return isPalindrome;
+  return true;
 }
 
 s = [
