@@ -7,15 +7,11 @@ var letterCombinations = function(digits) {
   if (digits.length <= 0 || digits.length > 4) {
     return [];
   }
-
-  let positionNumber = digits[0] - 1;
+  
   let array_result = [];
   let current_string = "";
-
-  for (let i = 0; i < phoneSymbols[positionNumber].length; i++) {
-    current_string = phoneSymbols[positionNumber][i];
-    array_result = getDifferentCombinations(digits, 1, array_result, current_string);
-  }
+  
+  array_result = getDifferentCombinations(digits, 0, array_result, current_string);
 
   return array_result;
 };
