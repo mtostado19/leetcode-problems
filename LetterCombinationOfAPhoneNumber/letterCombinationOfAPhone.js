@@ -7,11 +7,8 @@ var letterCombinations = function(digits) {
   if (digits.length <= 0 || digits.length > 4) {
     return [];
   }
-  
-  let array_result = [];
-  let current_string = "";
-  
-  array_result = getDifferentCombinations(digits, 0, array_result, current_string);
+
+  array_result = getDifferentCombinations(digits, 0, [], "");
 
   return array_result;
 };
