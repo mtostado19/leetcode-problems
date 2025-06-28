@@ -11,8 +11,8 @@
  * @return {ListNode}
  */
 class ListNode {
-  constructor(value, next) {
-    this.value = (value === undefined ? 0 : value);
+  constructor(val, next) {
+    this.val = (val === undefined ? 0 : val);
     this.next = (next===undefined ? null : next);
   }
 }
@@ -21,25 +21,21 @@ var mergeTwoLists = function(list1, list2) {
   
   let mergedList = new ListNode();
   let helper = mergedList;
-  let finalAnswer = [];
 
   while (list1 !== null && list2 !== null) {
-    if (list1.value < list2.value) {
-      helper.next = new ListNode(list1.value);
+    if (list1.val < list2.val) {
+      helper.next = new ListNode(list1.val);
       list1 = list1.next;
     } else {
-      helper.next = new ListNode(list2.value);
+      helper.next = new ListNode(list2.val);
       list2 = list2.next;
     }
     helper = helper.next;
   }
 
-  while (mergedList !== null) {
-    finalAnswer.push(mergedList.value);
-    mergedList = mergedList.next;
-  }
+  helper.next = (list1 !== null) ? list1 : list2;
 
-  return finalAnswer;
+  return mergedList.next;
 };
 
 
