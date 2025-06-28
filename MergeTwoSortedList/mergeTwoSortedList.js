@@ -10,36 +10,40 @@
  * @param {ListNode} list2
  * @return {ListNode}
  */
+class ListNode {
+  constructor(value, next) {
+    this.value = (value === undefined ? 0 : value);
+    this.next = (next===undefined ? null : next);
+  }
+}
+
 var mergeTwoLists = function(list1, list2) {
   
-  let index1 = 0;
-  let index2 = 0;
-  let list1Size = list1.length - 1;
-  let list2Size = list2.length - 1;
-  let test = (list1Size + list2Size) + 1;
-  let mergeNode = [];
+  let mergedList = new ListNode();
+  let helper = mergedList;
+  let finalAnswer = [];
 
-  while (index1 + index2 <= test) {
-
-    if (list1[index1] <= list2[index2] && index1 < list1Size || index2 > list2Size) {
-      mergeNode.push(list1[index1]);
-      index1++;
+  while (list1 !== null && list2 !== null) {
+    if (list1.value < list2.value) {
+      helper.next = new ListNode(list1.value);
+      list1 = list1.next;
+    } else {
+      helper.next = new ListNode(list2.value);
+      list2 = list2.next;
     }
-    else {
-      mergeNode.push(list2[index2])
-      index2++;
-    }
+    helper = helper.next;
   }
 
-  return mergeNode;
+  while (mergedList !== null) {
+    finalAnswer.push(mergedList.value);
+    mergedList = mergedList.next;
+  }
 
+  return finalAnswer;
 };
 
 
-const list1 = [1,2,4]
-const list2 = [1,3,4]
-
-// const list1 = []
-// const list2 = [1,2,4]
+let list1 = new ListNode(1, new ListNode(2, new ListNode(4)));
+let list2 = new ListNode(1, new ListNode(3, new ListNode(4)));
 
 console.log(mergeTwoLists(list1, list2));
