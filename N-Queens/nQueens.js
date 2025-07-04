@@ -6,7 +6,28 @@ function nQueens(n) {
 
   let answer = [];
   answer = backtracking(n, 0, [], []);
-  console.log(answer);
+  let visualAnswer = [];
+  answer.forEach(element => {
+    visualAnswer.push(displayAnswer(n, element));
+  });
+  return visualAnswer;
+}
+
+function displayAnswer(n, arr) {
+
+  let answer = [];
+  let file = "";
+  for (let i = 0; i < n; i++) {
+    for (let j = 0; j < arr.length; j++) {
+      if (arr[j] == i) {
+        file += "Q"
+      } else {
+        file += "."
+      }
+    }
+    answer.push(file);
+    file = "";
+  }
   return answer;
 }
 
@@ -43,4 +64,5 @@ function backtracking(n, row, solutionArray, blockedCells) {
   return solutionArray;
 }
 
-nQueens(4);
+
+console.log(nQueens(4));
