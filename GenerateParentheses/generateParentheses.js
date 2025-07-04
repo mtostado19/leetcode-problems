@@ -5,39 +5,30 @@
 var generateParenthesis = function(n) {
 
   let result =  [];
-  let finalResult = [];
-  let helper = "";
+  solve(n, 0, 0, [], result)
+  console.log(result);
 
-  result = solve(n, 0, 0, [], result)
-
-  let test = [];
+  let visualResult = []
   result.forEach(element => {
-    test.push(generateSolution(n, element));
+    visualResult.push(generateSolution(n, element));
   });
-  console.log(test);
+  return visualResult;
+
 };
 
 function generateSolution(n, result) {
-  console.log(result)
   let helper = "";
-  let index = 0;
-  for (let i = n; i > 0; i--) {
+  for (let i = 0; i < n; i++) {
     helper += "(";
-    while (index < result[i - 1]) {
-      helper += ")"
-      index++;
-    }
-    index = 0;
+    helper += ")".repeat(result[i]);
   }
   return helper;
 }
 
 
 function validation(n, numberOfClosing, row, max) {
-  if (numberOfClosing <= (n - row) && (max + numberOfClosing) <= n) {
-    if (row == 0 && numberOfClosing == 0) {
-      return false;
-    }
+  // Check if i have not exceded local maximum
+  if (numberOfClosing <= (row + 1) - max) {
     if (row == n - 1 && (max + numberOfClosing) != n) {
       return false;
     }
@@ -52,21 +43,22 @@ function solve(n, row, max, arrayHelper, arraySolution) {
   // validation for out of bounds here
   if (row === n) {
     arraySolution.push([...arrayHelper]);
-    return arraySolution;
+    return;
   }
 
-  for (let i = n; i > -1; i--) {
+  for (let i = 0; i <= n; i++) {
     if (validation(n, i, row, max)) {
       max += i;
       arrayHelper.push(i);
-      arraySolution = solve(n, row + 1, max, arrayHelper, arraySolution);
+      solve(n, row + 1, max, arrayHelper, arraySolution);
       arrayHelper.pop();
       max -= i;
     }
   }
-  return arraySolution;
+  return;
 }
 
 
 const s = 3;
-generateParenthesis(s);
+
+console.log(generateParenthesis(s));
