@@ -3,62 +3,27 @@
  * @return {boolean}
  */
 var isValidSudoku = function(board) {
-  const firstRow = 0;
-  const firstColum = 0;
-  let solutionBoard = board;
-  let isValid = false;
+  const rowObject = Array.from({ length: 9 }, () => new Set());
+  const columnObject = Array.from({ length: 9 }, () => new Set());
+  const boxObject = Array.from({ length: 9 }, () => new Set());
 
-  isValid = exploreSolutions(solutionBoard, firstRow, firstColum, isValid);
-  console.log(isValid);
+  for (let row = 0; row < 9; row++) {
+    for (let col = 0; col < 9; col++) {
 
-};
-
-function exploreSolutions(board, row, column, isValid) {
-
-  if (row > 8) {
-    return true;
-  }
-
-  if (column > 8) {
-    isValid = exploreSolutions(board, row + 1, 0, isValid);
-    return isValid;
-  }
-
-  if (board[row][column] != '.') {
-    isValid = exploreSolutions(board, row, column + 1, isValid);
-  } else {
-
-    for (let i = 0; i < 9; i++) {
-      if (validator(board, i.toString(), row, column)) {
-        board[row][column] = i.toString();
-        isValid = exploreSolutions(board, row, column + 1, isValid);
-        board[row][column] = ".";
+      if (board[row][col] != ".") {
+        const boxIndex = Math.floor(row / 3) * 3 + Math.floor(col / 3);
+        let num = board[row][col];
+        if (rowObject[row].has(num) || columnObject[col].has(num) || boxObject[boxIndex].has(num)) {
+          return false;
+        }
+        rowObject[row].add(num);
+        columnObject[col].add(num);
+        boxObject[boxIndex].add(num);
       }
     }
-
   }
-
-  return isValid;
-
-}
-
-function validator(board, number, row, column) {
-  let isCorrect = true;
-
-  for(let i = 0; i < 9; i++) {
-    if (board[i][column] == number) {
-      isCorrect = false;
-    }
-  }
-
-  for(let j = 0; j < 9; j++) {
-    if (board[row][j] == number) {
-      isCorrect = false;
-    }
-  }
-  return isCorrect;
-}
-
+  return true;
+};
 
 const board = [
   ["5","3",".",".","7",".",".",".","."],
@@ -72,5 +37,16 @@ const board = [
   [".",".",".",".","8",".",".","7","9"],
 ];
 
+// const board = [
+//   [".","8","7","6","5","4","3","2","1"],
+//   ["2",".",".",".",".",".",".",".","."],
+//   ["3",".",".",".",".",".",".",".","."],
+//   ["4",".",".",".",".",".",".",".","."],
+//   ["5",".",".",".",".",".",".",".","."],
+//   ["6",".",".",".",".",".",".",".","."],
+//   ["7",".",".",".",".",".",".",".","."],
+//   ["8",".",".",".",".",".",".",".","."],
+//   ["9",".",".",".",".",".",".",".","."]
+// ]
 
-isValidSudoku(board);
+console.log(isValidSudoku(board));
