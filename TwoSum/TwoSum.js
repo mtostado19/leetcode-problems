@@ -58,3 +58,28 @@ function TwoSumBetter(nums, target) {
 x.forEach(element => {
   console.log(TwoSumBetter(element[0], element[1]));
 });
+
+
+console.log("------------------------------");
+
+// Solution using Hash Maps
+
+function TwoSumHashMap(nums, target) {
+  let map = new Map();
+
+  for (let i = 0; i < nums.length; i++) {
+    complement = target - nums[i];
+
+    if (map.has(complement)) {
+      return [map.get(complement), i];
+    }
+
+    map.set(nums[i], i);
+  }
+
+  return null;
+};
+
+x.forEach(element => {
+  console.log(TwoSumHashMap(element[0], element[1]));
+})
