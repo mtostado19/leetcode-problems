@@ -1,16 +1,14 @@
 class Solution:
     def isValid(self, s: str) -> bool:
-        openDict = {"(": 0, "[": 1, "{": 2}
-        closeDict = {")": 0, "]": 1, "}": 2}
+        dict = { ")": "(", "]": "[", "}": "{" }
         openArr = []
         for i in s:
-            if i in openDict:
-                openArr.append(openDict[i])
-                print("open", openArr)
-            if i in closeDict:
+            if i in "([{":
+                openArr.append(i)
+            if i in ")]}":
                 if len(openArr) == 0:
                     return False
-                if (openArr[-1] != closeDict[i]):
+                if (openArr[-1] != dict[i]):
                     return False
                 openArr.pop()
         if len(openArr) > 0:
@@ -18,6 +16,6 @@ class Solution:
         return True
     
 
-s = "(])"
+s = "(())"
 sol = Solution()
 print(sol.isValid(s))
