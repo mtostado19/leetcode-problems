@@ -20,14 +20,13 @@ class Solution:
         return palindrome
     
     def isPalindrome(self, s, left, right):
-        while left >= 0 and right <= len(s) - 1:
-            if (s[left] != s[right]):
-                break
+        while left >= 0 and right <= len(s) - 1 and s[left] == s[right]:
             left -= 1
             right += 1
         return left + 1, right - 1
     
 
-s = "cddf"
+s = ["babad", "cddf", "ptatk"]
 sol = Solution()
-print(sol.longestPalindrome(s))
+for item in s:
+  print(sol.longestPalindrome(item))
