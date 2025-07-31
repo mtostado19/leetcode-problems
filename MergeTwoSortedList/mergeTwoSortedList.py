@@ -24,4 +24,12 @@ class Solution:
 list1 = ListNode(1, ListNode(2, ListNode(4)))
 list2 = ListNode(1, ListNode(3, ListNode(4)))
 sol = Solution()
-print(sol.mergeTwoLists(list1, list2))
+sol.mergeTwoLists(list1, list2)
+
+def printSolution(list):
+    while list:
+        print(list.val, end="->")
+        list = list.next
+    print("None")
+
+printSolution(sol.mergeTwoLists(list1, list2))
