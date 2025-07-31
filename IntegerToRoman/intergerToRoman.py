@@ -15,15 +15,11 @@ class Solution:
         [1, "I"]
     ]
     def intToRoman(self, num: int) -> str:
-        print(self.publicDictionary)
         romanString = ""
-        index = 0
-        while num > 0:
-            if num - self.publicDictionary[index][0] >= 0:
-                num -= self.publicDictionary[index][0]
-                romanString += self.publicDictionary[index][1]
-            else:
-                index += 1
+        for intRoman, strRoman in self.publicDictionary:
+            while num >= intRoman:
+                num -= intRoman
+                romanString += strRoman
         return romanString
     
 
